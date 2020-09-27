@@ -242,7 +242,9 @@ class AutoModelForRelationExtraction(nn.Module):
         self.encoder = AutoModel.from_pretrained(pretrained_model)
         self.config = AutoConfig.from_pretrained(pretrained_model)
         self.config.n_rel = n_rel
+        self.n_rel = n_rel
         self.config.dropout_p = dropout_p
+        self.dropout_p = dropout_p
         self.re_head = REHead(self.config)
         try:
             self.re_head.load_state_dict(torch.load(pretrained_model + '/re_head.pt'))

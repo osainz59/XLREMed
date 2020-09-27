@@ -49,23 +49,19 @@ pr_f = evaluator.get_multiclass_precision_recall_curve(labels, pred_proba, parti
 
 ## Use (in CLI):
 
-* Training: [xlremed/mtb_finetuning.py](xlremed/mtb_finetuning.py)
+* Training: [xlremed/finetune.py](xlremed/finetune.py)
 ```
-usage: mtb_finetuning.py [-h] [--pretrained_model PRETRAINED_MODEL]
-                         [--force_preprocess]
-                         [--max_seq_length MAX_SEQ_LENGTH]
-                         [--batch_size BATCH_SIZE]
-                         [--dev_batch_size DEV_BATCH_SIZE] [--epochs EPOCHS]
-                         [--optimizer OPTIMIZER] [--lr LR]
-                         [--momentum MOMENTUM] [--nesterov]
-                         [--grad_clip GRAD_CLIP] [--l2 L2]
-                         [--mlm_probability MLM_PROBABILITY]
-                         [--linear_scheduler] [--warmup_steps WARMUP_STEPS]
-                         [--mtb_probability MTB_PROBABILITY] [--lambd LAMBD]
-                         [--half] [--grad_acc GRAD_ACC] [--patience PATIENCE]
-                         [--delta DELTA] [--debug] [--ensemble_data]
-                         [--recover_training] [--device DEVICE]
-                         model_folder_path
+usage: finetune.py [-h] [--pretrained_model PRETRAINED_MODEL]
+                   [--force_preprocess] [--max_seq_length MAX_SEQ_LENGTH]
+                   [--batch_size BATCH_SIZE] [--dev_batch_size DEV_BATCH_SIZE]
+                   [--epochs EPOCHS] [--optimizer OPTIMIZER] [--lr LR]
+                   [--momentum MOMENTUM] [--nesterov] [--grad_clip GRAD_CLIP]
+                   [--l2 L2] [--mlm_probability MLM_PROBABILITY]
+                   [--linear_scheduler] [--warmup_steps WARMUP_STEPS]
+                   [--mtb_probability MTB_PROBABILITY] [--lambd LAMBD]
+                   [--half] [--grad_acc GRAD_ACC] [--patience PATIENCE]
+                   [--delta DELTA] [--debug] [--ensemble_data]
+                   [--recover_training] [--device DEVICE]
 ```
 * Evaluating: [xlremed/evaluate_model.py](xlremed/evaluate_model.py)
 ```
@@ -175,64 +171,6 @@ config = {
     ...
 }
 ```
-
-## Results on some datasets
-
-### Implementation of BERTem model on PyTorch
-
-Best configuration (BERT-base):
-
-```python
-conf = {
-    'model' : 'Concat',
-    'n_rel' : dataset.get_n_rel(),          # Number of relations
-    'vocab_size' : len(dataset.tokenizer),  # Vocab size
-    'dropout_p' : .2,                       # Dropout p
-    'device': "cuda",                       # Device
-    'epochs': 100,                           # Epochs
-    'lr': 3e-3,                             # Learning rate
-    'half': False,
-    'hidden_size': 768,
-    'grad_acc': 4,
-    'optimizer': 'SGD'
-}
-
-rge.fit(dataset, batch_size=15, patience=3, delta=0.0)
-```
-
-Best configuration (BERT-large):
-
-```python
-config = {
-    'model' : 'Concat',
-    'n_rel' : dataset.get_n_rel(),          # Number of relations
-    'vocab_size' : len(dataset.tokenizer),  # Vocab size
-    'dropout_p' : .3,                       # Dropout p
-    'device': "cuda",                       # Device
-    'epochs': 100,                           # Epochs
-    'lr': 3e-4,                             # Learning rate
-    'half': False,
-    'hidden_size': 1024,
-    'grad_acc': 26, #26 -> F1: 68 at epoch 10
-    'optimizer': 'SGD'
-}
-
-rge.fit(dataset, batch_size=5, patience=3, delta=0.0) # 7
-```
-
-Results (**TACRED**):
-
-| Model | Dataset           | Precision | Recall | F-Score |
-|:------|:------------------|:---------:|:------:|:-------:|
-|Base   | Train             | 0.80      | 0.71   | 0.75    |
-|| with NO RELATION  | 0.91      | 0.91   | 0.91    |
-|| Development       | 0.67      | 0.65   | 0.66    |
-|| with NO RELATION  | 0.86      | 0.86   | 0.86    |
-||||||
-|Large | Train             | 0.80      | 0.72   | 0.76    |
-|| with NO RELATION  | 0.92      | 0.92   | 0.92    |
-|| Development       | 0.64      | 0.71   | 0.67    |
-|| with NO RELATION  | 0.86      | 0.86   | 0.86    |
 
 
 ## Cite us
