@@ -176,7 +176,7 @@ config = {
 }
 ```
 
-## Results of some datasets
+## Results on some datasets
 
 ### Implementation of BERTem model on PyTorch
 
@@ -234,3 +234,19 @@ Results (**TACRED**):
 || Development       | 0.64      | 0.71   | 0.67    |
 || with NO RELATION  | 0.86      | 0.86   | 0.86    |
 
+
+## Cite us
+
+If you want to cite this work please use this bibtex:
+
+```bibtex
+@inproceedings{ixanerre_ehealthkd2020,
+  author    = {Andr{\'{e}}s, Edgar and
+              Sainz, Oscar and
+              Atutxa, Aitziber and
+              Lopez de Lacalle, Oier},
+  title     = {{IXA-NER-RE at eHealth-KD Challenge 2020: Cross-Lingual Transfer Learning for Medical Relation Extraction}},
+  booktitle = {Proceedings of the Iberian Languages Evaluation Forum (IberLEF 2020)},
+  year      = {2020},
+}
+```
