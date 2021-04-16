@@ -246,6 +246,7 @@ class AutoModelForRelationExtraction(nn.Module):
         self.n_rel = n_rel
         self.config.dropout_p = dropout_p
         self.dropout_p = dropout_p
+        self.config.vocab_size = kwargs['vocab_size']
         self.re_head = REHead(self.config)
         try:
             self.re_head.load_state_dict(torch.load(pretrained_model + '/re_head.pt'))
