@@ -240,6 +240,7 @@ class AutoModelForRelationExtraction(nn.Module):
         super(AutoModelForRelationExtraction, self).__init__()
 
         self.encoder = AutoModel.from_pretrained(pretrained_model)
+        self.encoder.resize_token_embeddings(kwargs['vocab_size'])
         self.config = AutoConfig.from_pretrained(pretrained_model)
         self.config.n_rel = n_rel
         self.n_rel = n_rel
