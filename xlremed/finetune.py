@@ -73,7 +73,7 @@ def parse():
 def main(opt):
 
     dataset = EHealthKD('data/ehealthkd-2020/', opt.pretrained_model, add_ensemble_data=opt.ensemble_data)
-    opt.model = 'default'
+    opt.model = 'MTBFineTune'
     opt.vocab_size = len(dataset.tokenizer)
     opt.dropout_p = .2
     opt.n_rel = dataset.get_n_rel()
