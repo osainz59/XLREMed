@@ -82,7 +82,7 @@ def main(opt):
 
     rge = Framework(**config)
     rge.fit(dataset, batch_size=opt.batch_size, patience=opt.patience, delta=opt.delta)
-    name = opt.model_folder_path.split('/')[-1]
+    name = opt.pretrained_model
     rge.save_model(f'checkpoints/{name}')
     dataset.save_tokenizer(f'checkpoints/{name}')
 
